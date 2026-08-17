@@ -1,0 +1,38 @@
+.page-section {
+    padding-block: 4rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.dashboard-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--background);
+    padding: var(--space-lg);
+}
+
+.dashboard-card h2 {
+    margin: 0 0 var(--space-sm);
+    font-size: 1.35rem;
+    line-height: 1.3;
+}
+
+.dashboard-card p {
+    margin: 0 0 var(--space-md);
+    color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-section {
+        padding-block: 3rem;
+    }
+}

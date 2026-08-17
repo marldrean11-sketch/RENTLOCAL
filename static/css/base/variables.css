@@ -1,0 +1,19 @@
+:root {
+    --page-width: 1200px;
+
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+
+    --background: #ffffff;
+    --surface: #f8fafc;
+    --border: #e5e7eb;
+
+    --brand: #111827;
+    --brand-hover: #374151;
+}

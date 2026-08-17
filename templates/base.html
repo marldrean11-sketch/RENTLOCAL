@@ -6,96 +6,135 @@
 
     <title>{% block title %}RENTLOCAL{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+
 </head>
 
 <body>
 
     <header class="site-header">
         <div class="container">
+
             <nav class="navbar">
-    <div class="nav-container">
 
-        <a href="{{ url_for('home') }}" class="brand">
-            RENTLOCAL
-        </a>
+                <div class="nav-container">
 
-        <div class="nav-links">
-            <a href="{{ url_for('browse') }}">Browse Equipment</a>
+                    <!-- Brand -->
+                    <a
+                        href="{{ url_for('home') }}"
+                        class="brand"
+                    >
+                        RENTLOCAL
+                    </a>
 
-            {% if session.get("user_id") %}
+                    <!-- Navigation Links -->
+                    <div class="nav-links">
 
-    {% if session.get("user_role") == "owner" %}
-
-        <a href="{{ url_for('owner_listings') }}">
-            My Listings
-        </a>
-
-        <a href="{{ url_for('owner_requests') }}">
-            Rental Requests
-        </a>
-
-    {% elif session.get("user_role") == "renter" %}
-
-        <a href="{{ url_for('renter_requests') }}">
-                     My Requests
-              </a>
-
-                {% endif %}
-
-                   <a href="{{ url_for('dashboard') }}">Dashboard</a>
-
-                    <a href="{{ url_for('logout') }}">Sign Out</a>
-
-                    {% else %}
-
-                <a href="{{ url_for('login') }}">Sign In</a>
-
-                {% endif %}
+                        <!-- Available to everyone -->
+                        <a href="{{ url_for('browse') }}">
+                            Browse Equipment
+                        </a>
 
 
-              </div>
+                        {% if session.get("user_id") %}
 
-              </div>
+                            <!-- Logged-in user navigation -->
+
+                            {% if session.get("user_role") == "owner" %}
+
+                                <a href="{{ url_for('owner_listings') }}">
+                                    My Listings
+                                </a>
+
+                                <a href="{{ url_for('owner_requests') }}">
+                                    Rental Requests
+                                </a>
+
+                            {% elif session.get("user_role") == "renter" %}
+
+                                <a href="{{ url_for('renter_requests') }}">
+                                    My Requests
+                                </a>
+
+                            {% endif %}
+
+
+                            <a href="{{ url_for('dashboard') }}">
+                                Dashboard
+                            </a>
+
+                            <a href="{{ url_for('logout') }}">
+                                Sign Out
+                            </a>
+
+
+                        {% else %}
+
+                            <!-- Guest navigation -->
+
+                            <a href="{{ url_for('login') }}">
+                                Sign In
+                            </a>
+
+                            <a href="{{ url_for('register') }}">
+                                Register
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
             </nav>
 
-
         </div>
-
-
     </header>
+
 
     <main>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
 
-        {% if messages %}
+            {% if messages %}
 
-            <div class="container">
+                <div class="container">
 
-                {% for category, message in messages %}
+                    {% for category, message in messages %}
 
-                    <div class="flash-message flash-{{ category }}">
-                        {{ message }}
-                    </div>
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
 
-                {% endfor %}
+                    {% endfor %}
 
-            </div>
+                </div>
 
-        {% endif %}
+            {% endif %}
 
-    {% endwith %}
+        {% endwith %}
 
-    {% block content %}{% endblock %}
 
-</main>
+        <!-- Page Content -->
+        {% block content %}{% endblock %}
+
+    </main>
+
 
     <footer class="site-footer">
+
         <div class="container">
-            <p>&copy; 2026 RENTLOCAL</p>
+
+            <p>
+                &copy; 2026 RENTLOCAL
+            </p>
+
         </div>
+
     </footer>
 
 </body>
 </html>
+

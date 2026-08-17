@@ -3,30 +3,78 @@
 {% block title %}Dashboard | RENTLOCAL{% endblock %}
 
 {% block content %}
-<section class="page-section">
+
+<section class="dashboard-page">
+
     <div class="container">
 
-        <h1 class="page-title">
-            Welcome back, {{ session["user_name"] }}
-        </h1>
+        <!-- Welcome Header -->
+        <div class="dashboard-header">
 
-        <p class="text-secondary">
-            Manage your RENTLOCAL activity.
-        </p>
+            <div>
+                <p class="dashboard-eyebrow">
+                    RENTLOCAL DASHBOARD
+                </p>
 
+                <h1 class="page-title">
+                    Welcome back, {{ session["user_name"] }}!
+                </h1>
+
+                <p class="text-secondary">
+                    {% if session.get("user_role") == "owner" %}
+                        Manage your equipment listings and rental requests.
+                    {% elif session.get("user_role") == "renter" %}
+                        Find equipment and keep track of your rental requests.
+                    {% endif %}
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- OWNER DASHBOARD -->
         {% if session.get("user_role") == "owner" %}
 
-            <h2 class="section-title">Owner Dashboard</h2>
+            <div class="dashboard-section-header">
 
-            <div class="listing-grid">
+                <div>
+                    <h2 class="section-title">
+                        Owner Dashboard
+                    </h2>
 
-                <article class="listing-card">
-                    <div class="listing-card-content">
+                    <p class="text-secondary">
+                        Manage the equipment you offer on RENTLOCAL.
+                    </p>
+                </div>
 
-                        <h2>My Listings</h2>
+                <a
+                    href="{{ url_for('create_listing_page') }}"
+                    class="button button-primary"
+                >
+                    + Create New Listing
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- My Listings -->
+                <article class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        📦
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <h3>
+                            My Listings
+                        </h3>
 
                         <p>
-                            Manage the equipment you are renting out.
+                            Add, edit, and manage the equipment you are
+                            renting out.
                         </p>
 
                         <a
@@ -37,15 +85,26 @@
                         </a>
 
                     </div>
+
                 </article>
 
-                <article class="listing-card">
-                    <div class="listing-card-content">
 
-                        <h2>Rental Requests</h2>
+                <!-- Rental Requests -->
+                <article class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        📋
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <h3>
+                            Rental Requests
+                        </h3>
 
                         <p>
-                            Review requests from renters.
+                            Review rental requests and decide whether to
+                            accept or reject them.
                         </p>
 
                         <a
@@ -56,23 +115,56 @@
                         </a>
 
                     </div>
+
                 </article>
 
             </div>
 
+
+        <!-- RENTER DASHBOARD -->
         {% elif session.get("user_role") == "renter" %}
 
-            <h2 class="section-title">Renter Dashboard</h2>
+            <div class="dashboard-section-header">
 
-            <div class="listing-grid">
+                <div>
+                    <h2 class="section-title">
+                        Renter Dashboard
+                    </h2>
 
-                <article class="listing-card">
-                    <div class="listing-card-content">
+                    <p class="text-secondary">
+                        Find equipment and manage your rental activity.
+                    </p>
+                </div>
 
-                        <h2>My Rental Requests</h2>
+                <a
+                    href="{{ url_for('browse') }}"
+                    class="button button-primary"
+                >
+                    Browse Equipment
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- My Requests -->
+                <article class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        📋
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <h3>
+                            My Rental Requests
+                        </h3>
 
                         <p>
-                            Track the equipment you have requested to rent.
+                            Track the equipment you have requested and check
+                            whether your requests are pending, accepted, or
+                            rejected.
                         </p>
 
                         <a
@@ -83,15 +175,26 @@
                         </a>
 
                     </div>
+
                 </article>
 
-                <article class="listing-card">
-                    <div class="listing-card-content">
 
-                        <h2>Browse Equipment</h2>
+                <!-- Browse Equipment -->
+                <article class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        🔎
+                    </div>
+
+                    <div class="dashboard-card-content">
+
+                        <h3>
+                            Browse Equipment
+                        </h3>
 
                         <p>
-                            Find equipment available from local owners.
+                            Explore equipment available for rent from local
+                            owners.
                         </p>
 
                         <a
@@ -102,6 +205,7 @@
                         </a>
 
                     </div>
+
                 </article>
 
             </div>
@@ -109,5 +213,8 @@
         {% endif %}
 
     </div>
+
 </section>
+
 {% endblock %}
+

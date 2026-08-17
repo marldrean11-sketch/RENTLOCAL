@@ -1,0 +1,22 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-primary {
+    color: #ffffff;
+    background: var(--brand);
+}
+
+.button-primary:hover {
+    background: var(--brand-hover);
+}
