@@ -7,7 +7,7 @@ from listing.listing import (
     create_rental_request,
     get_owner_listings,
     get_available_listings,
-    get_listing_by_id,
+    get_listing_by_id,  
     get_owner_rental_requests,
     get_renter_rental_requests,
     update_listing,
