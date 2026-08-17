@@ -1,25 +1,36 @@
 from auth.auth import login_user
 
 
-success, user, message = login_user(
-    "owner-test@rentlocal.com",
-    "TestPassword123"
-)
+def test_login_with_correct_password(test_db):
+    success, user, message = login_user(
+        "owner@test.com",
+        "TestPassword123"
+    )
 
-print("Correct password test:")
-print("Success:", success)
-print("Message:", message)
-
-if user:
-    print("User:", user["name"])
-    print("Role:", user["role"])
+    assert success is True
+    assert user is not None
+    assert user["name"] == "Test Owner"
+    assert user["role"] == "owner"
+    assert message == "Login successful."
 
 
-success, user, message = login_user(
-    "owner-test@rentlocal.com",
-    "WrongPassword123"
-)
+def test_login_with_wrong_password(test_db):
+    success, user, message = login_user(
+        "owner@test.com",
+        "WrongPassword123"
+    )
 
-print("\nWrong password test:")
-print("Success:", success)
-print("Message:", message)
+    assert success is False
+    assert user is None
+    assert message == "Invalid email or password."
+
+
+def test_login_with_unknown_email(test_db):
+    success, user, message = login_user(
+        "doesnotexist@test.com",
+        "TestPassword123"
+    )
+
+    assert success is False
+    assert user is None
+    assert message == "Invalid email or password."
