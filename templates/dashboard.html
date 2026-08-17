@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | RENTLOCAL{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+
+        <h1 class="page-title">
+            Welcome back, {{ session["user_name"] }}
+        </h1>
+
+        <p class="text-secondary">
+            Manage your RENTLOCAL activity.
+        </p>
+
+        {% if session.get("user_role") == "owner" %}
+
+            <h2 class="section-title">Owner Dashboard</h2>
+
+            <div class="listing-grid">
+
+                <article class="listing-card">
+                    <div class="listing-card-content">
+
+                        <h2>My Listings</h2>
+
+                        <p>
+                            Manage the equipment you are renting out.
+                        </p>
+
+                        <a
+                            href="{{ url_for('owner_listings') }}"
+                            class="button button-primary"
+                        >
+                            View My Listings
+                        </a>
+
+                    </div>
+                </article>
+
+                <article class="listing-card">
+                    <div class="listing-card-content">
+
+                        <h2>Rental Requests</h2>
+
+                        <p>
+                            Review requests from renters.
+                        </p>
+
+                        <a
+                            href="{{ url_for('owner_requests') }}"
+                            class="button button-primary"
+                        >
+                            View Rental Requests
+                        </a>
+
+                    </div>
+                </article>
+
+            </div>
+
+        {% elif session.get("user_role") == "renter" %}
+
+            <h2 class="section-title">Renter Dashboard</h2>
+
+            <div class="listing-grid">
+
+                <article class="listing-card">
+                    <div class="listing-card-content">
+
+                        <h2>My Rental Requests</h2>
+
+                        <p>
+                            Track the equipment you have requested to rent.
+                        </p>
+
+                        <a
+                            href="{{ url_for('renter_requests') }}"
+                            class="button button-primary"
+                        >
+                            View My Requests
+                        </a>
+
+                    </div>
+                </article>
+
+                <article class="listing-card">
+                    <div class="listing-card-content">
+
+                        <h2>Browse Equipment</h2>
+
+                        <p>
+                            Find equipment available from local owners.
+                        </p>
+
+                        <a
+                            href="{{ url_for('browse') }}"
+                            class="button button-primary"
+                        >
+                            Browse Equipment
+                        </a>
+
+                    </div>
+                </article>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

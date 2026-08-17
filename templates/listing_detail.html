@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}{{ listing["title"] }} | RENTLOCAL{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+
+        <h1 class="page-title">
+            {{ listing["title"] }}
+        </h1>
+
+        {% if listing["image_filename"] %}
+            <div class="listing-image">
+                <img
+                    src="{{ url_for('uploaded_file', filename=listing['image_filename']) }}"
+                    alt="{{ listing['title'] }}"
+                    style="max-width: 100%; height: auto; border-radius: 12px;"
+                >
+            </div>
+        {% endif %}
+
+        <p>{{ listing["description"] }}</p>
+
+        <p>
+            <strong>Category:</strong>
+            {{ listing["category"] }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ₱{{ "%.2f"|format(listing["price_per_day"]) }} / day
+        </p>
+
+        <p>
+            <strong>Location:</strong>
+            {{ listing["location"] }}
+        </p>
+
+        <p>
+            <strong>Condition:</strong>
+            {{ listing["condition"] }}
+        </p>
+
+        <p>
+            <strong>Owner:</strong>
+            {{ listing["owner_name"] }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            {{ listing["status"] }}
+        </p>
+
+
+        {% if session.get("user_id") and session.get("user_role") == "renter" %}
+
+            <hr>
+
+            <h2>Request to Rent</h2>
+
+            <form
+                method="POST"
+                action="{{ url_for('request_rental', listing_id=listing['id']) }}"
+            >
+
+                <div>
+                    <label for="start_date">Start Date</label>
+                    <input
+                        type="date"
+                        id="start_date"
+                        name="start_date"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="end_date">End Date</label>
+                    <input
+                        type="date"
+                        id="end_date"
+                        name="end_date"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="message">Message</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        placeholder="Add a message to the owner..."
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="button button-primary">
+                    Request to Rent
+                </button>
+
+            </form>
+
+        {% elif not session.get("user_id") %}
+
+            <p>
+                <a href="{{ url_for('login') }}">Sign in</a>
+                to request this equipment.
+            </p>
+
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}
+

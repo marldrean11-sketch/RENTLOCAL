@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Rental Requests | RENTLOCAL{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+
+        <h1 class="page-title">Rental Requests</h1>
+
+        <p class="text-secondary">
+            Review rental requests from renters.
+        </p>
+
+        {% if requests %}
+
+            <div class="listing-grid">
+
+                {% for request in requests %}
+
+                    <article class="listing-card">
+
+                        <div class="listing-card-content">
+
+                            <h2>{{ request["listing_title"] }}</h2>
+
+                            <p>
+                                <strong>Renter:</strong>
+                                {{ request["renter_name"] }}
+                            </p>
+
+                            <p>
+                                <strong>Start Date:</strong>
+                                {{ request["start_date"] }}
+                            </p>
+
+                            <p>
+                                <strong>End Date:</strong>
+                                {{ request["end_date"] }}
+                            </p>
+
+                            <p>
+                                <strong>Message:</strong>
+                                {{ request["message"] or "No message provided." }}
+                            </p>
+
+                            <p>
+                                <strong>Status:</strong>
+                                {{ request["status"] }}
+                            </p>
+
+
+                            {% if request["status"] == "pending" %}
+
+                                <div>
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('update_request_status', request_id=request['id']) }}"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="status"
+                                            value="accepted"
+                                        >
+
+                                        <button
+                                            type="submit"
+                                            class="button button-primary"
+                                        >
+                                            Accept
+                                        </button>
+
+                                    </form>
+
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('update_request_status', request_id=request['id']) }}"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="status"
+                                            value="rejected"
+                                        >
+
+                                        <button
+                                            type="submit"
+                                            class="button"
+                                        >
+                                            Reject
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                You currently have no rental requests.
+            </p>
+
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

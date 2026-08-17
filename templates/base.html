@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}RENTLOCAL{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+    <div class="nav-container">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            RENTLOCAL
+        </a>
+
+        <div class="nav-links">
+            <a href="{{ url_for('browse') }}">Browse Equipment</a>
+
+            {% if session.get("user_id") %}
+
+    {% if session.get("user_role") == "owner" %}
+
+        <a href="{{ url_for('owner_listings') }}">
+            My Listings
+        </a>
+
+        <a href="{{ url_for('owner_requests') }}">
+            Rental Requests
+        </a>
+
+    {% elif session.get("user_role") == "renter" %}
+
+        <a href="{{ url_for('renter_requests') }}">
+                     My Requests
+              </a>
+
+                {% endif %}
+
+                   <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+                    <a href="{{ url_for('logout') }}">Sign Out</a>
+
+                    {% else %}
+
+                <a href="{{ url_for('login') }}">Sign In</a>
+
+                {% endif %}
+
+
+              </div>
+
+              </div>
+            </nav>
+
+
+        </div>
+
+
+    </header>
+
+    <main>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 RENTLOCAL</p>
+        </div>
+    </footer>
+
+</body>
+</html>

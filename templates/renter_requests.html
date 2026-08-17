@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}My Rental Requests | RENTLOCAL{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+
+        <h1 class="page-title">My Rental Requests</h1>
+
+        <p class="text-secondary">
+            Track the rental requests you have submitted.
+        </p>
+
+        {% if requests %}
+
+            <div class="listing-grid">
+
+                {% for request in requests %}
+
+                    <article class="listing-card">
+
+                        <div class="listing-card-content">
+
+                            <h2>{{ request["listing_title"] }}</h2>
+
+                            <p>
+                                <strong>Owner:</strong>
+                                {{ request["owner_name"] }}
+                            </p>
+
+                            <p>
+                                <strong>Start Date:</strong>
+                                {{ request["start_date"] }}
+                            </p>
+
+                            <p>
+                                <strong>End Date:</strong>
+                                {{ request["end_date"] }}
+                            </p>
+
+                            <p>
+                                <strong>Message:</strong>
+                                {{ request["message"] or "No message provided." }}
+                            </p>
+
+                            <p>
+                                <strong>Status:</strong>
+                                {{ request["status"] }}
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                You have not submitted any rental requests yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

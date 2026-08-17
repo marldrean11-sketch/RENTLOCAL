@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}My Listings | RENTLOCAL{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">My Listings</h1>
+
+                <p class="text-secondary">
+                    Manage the equipment you are renting out.
+                </p>
+            </div>
+
+            <a
+                href="{{ url_for('create_listing_page') }}"
+                class="button button-primary"
+            >
+                Create Listing
+            </a>
+        </div>
+
+
+        {% if listings %}
+
+            <div class="listing-grid">
+
+                {% for listing in listings %}
+
+                    <article class="listing-card">
+
+
+                        <!-- Listing Image -->
+
+                        {% if listing["image_filename"] %}
+
+                            <div class="listing-card-image">
+
+                                <img
+                                    src="{{ url_for('uploaded_file', filename=listing['image_filename']) }}"
+                                    alt="{{ listing['title'] }}"
+                                >
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Listing Information -->
+
+                        <div class="listing-card-content">
+
+                            <h2>
+                                {{ listing["title"] }}
+                            </h2>
+
+
+                            <p>
+                                {{ listing["description"] }}
+                            </p>
+
+
+                            <p>
+                                <strong>Category:</strong>
+                                {{ listing["category"] }}
+                            </p>
+
+
+                            <p>
+                                <strong>Price:</strong>
+                                ₱{{ "%.2f"|format(listing["price_per_day"]) }}
+                                / day
+                            </p>
+
+
+                            <p>
+                                <strong>Location:</strong>
+                                {{ listing["location"] }}
+                            </p>
+
+
+                            <p>
+                                <strong>Condition:</strong>
+                                {{ listing["condition"] }}
+                            </p>
+
+
+                            <p>
+                                <strong>Status:</strong>
+                                {{ listing["status"] }}
+                            </p>
+
+
+                            <!-- Actions -->
+
+                            <div>
+
+                                <a
+                                    href="{{ url_for('edit_listing', listing_id=listing['id']) }}"
+                                    class="button"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('delete_listing_page', listing_id=listing['id']) }}"
+                                    style="display: inline;"
+                                    onsubmit="return confirm('Are you sure you want to delete this listing?');"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="button"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+            <p>
+                You don't have any listings yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
+

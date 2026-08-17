@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local database
+database/*.db
+database/*.sqlite
+database/*.sqlite3
+
+# Uploaded runtime files
+uploads/*
+
+# Environment / secrets
+.env
+.env.*
+
+# VS Code local settings
+.vscode/
