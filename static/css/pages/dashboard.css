@@ -1,38 +1,211 @@
-.page-section {
-    padding-block: 4rem;
+/* =========================================
+   RENTLOCAL — Dashboard
+   Student / Young Adult Marketplace
+   ========================================= */
+
+
+/* ================================
+   PAGE
+   ================================ */
+
+.dashboard-page {
+    padding: 4rem 0 5rem;
 }
+
+
+/* ================================
+   HEADER
+   ================================ */
+
+.dashboard-header {
+    margin-bottom: 3rem;
+}
+
+.dashboard-eyebrow {
+    margin: 0 0 var(--space-sm);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.dashboard-header .page-title {
+    margin-bottom: var(--space-sm);
+}
+
+.dashboard-header .text-secondary {
+    max-width: 650px;
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+
+/* ================================
+   SECTION HEADER
+   ================================ */
+
+.dashboard-section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.dashboard-section-header .section-title {
+    margin-bottom: var(--space-xs);
+}
+
+.dashboard-section-header .text-secondary {
+    margin: 0;
+}
+
+
+/* ================================
+   DASHBOARD GRID
+   ================================ */
 
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-lg);
-    margin-top: var(--space-xl);
 }
+
+
+/* ================================
+   DASHBOARD CARD
+   ================================ */
 
 .dashboard-card {
+    display: flex;
+    gap: var(--space-lg);
+    min-height: 250px;
+    padding: var(--space-xl);
+
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
+
     background: var(--background);
-    padding: var(--space-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease;
 }
 
-.dashboard-card h2 {
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* ================================
+   CARD ICON
+   ================================ */
+
+.dashboard-card-icon {
+    flex: 0 0 auto;
+
+    width: 56px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: var(--radius-md);
+
+    background: var(--brand-soft);
+
+    font-size: 1.6rem;
+}
+
+
+/* ================================
+   CARD CONTENT
+   ================================ */
+
+.dashboard-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dashboard-card-content h3 {
     margin: 0 0 var(--space-sm);
+
+    color: var(--text-primary);
+
     font-size: 1.35rem;
-    line-height: 1.3;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
-.dashboard-card p {
-    margin: 0 0 var(--space-md);
+.dashboard-card-content p {
+    margin: 0;
+
+    max-width: 520px;
+
     color: var(--text-secondary);
+    line-height: 1.65;
 }
 
-@media (max-width: 640px) {
+.dashboard-card-content .button {
+    margin-top: auto;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 900px) {
+
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
 
-    .page-section {
-        padding-block: 3rem;
+}
+
+
+@media (max-width: 700px) {
+
+    .dashboard-section-header {
+        align-items: flex-start;
+        flex-direction: column;
     }
+
+    .dashboard-section-header .button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 640px) {
+
+    .dashboard-page {
+        padding: 3rem 0 4rem;
+    }
+
+    .dashboard-header {
+        margin-bottom: var(--space-xl);
+    }
+
+    .dashboard-card {
+        flex-direction: column;
+        min-height: auto;
+        padding: var(--space-lg);
+    }
+
+    .dashboard-card-content .button {
+        width: 100%;
+        margin-top: var(--space-lg);
+    }
+
 }

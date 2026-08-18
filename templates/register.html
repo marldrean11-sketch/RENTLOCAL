@@ -3,72 +3,159 @@
 {% block title %}Create Account | RENTLOCAL{% endblock %}
 
 {% block content %}
-<section class="page-section">
+
+<section class="auth-page">
     <div class="container">
 
-        <h1 class="page-title">Create an Account</h1>
+        <div class="auth-layout">
 
-        <p class="text-secondary">
-            Join RENTLOCAL to rent or offer equipment locally.
-        </p>
+            <div class="auth-intro">
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">
-                        {{ message }}
+                <span class="section-eyebrow">
+                    JOIN RENTLOCAL
+                </span>
+
+                <h1 class="page-title">
+                    Create an Account
+                </h1>
+
+                <p class="text-secondary">
+                    Join RENTLOCAL to rent equipment from local owners
+                    or offer your own equipment for rent.
+                </p>
+
+            </div>
+
+
+            <div class="auth-card">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        <div class="flash-messages">
+
+                            {% for category, message in messages %}
+
+                                <div class="flash-message {{ category }}">
+                                    {{ message }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <form
+                    method="POST"
+                    class="auth-form"
+                >
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            required
+                        >
+
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
-        <form method="POST">
 
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                >
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            minlength="8"
+                            placeholder="At least 8 characters"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="role">
+                            Account Type
+                        </label>
+
+                        <select
+                            id="role"
+                            name="role"
+                        >
+
+                            <option value="renter">
+                                Renter
+                            </option>
+
+                            <option value="owner">
+                                Owner
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="button button-primary auth-submit"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+
+                <p class="auth-footer">
+
+                    Already have an account?
+
+                    <a href="{{ url_for('login') }}">
+                        Sign in
+                    </a>
+
+                </p>
+
             </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    minlength="8"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="role">Account Type</label>
-                <select id="role" name="role">
-                    <option value="renter">Renter</option>
-                    <option value="owner">Owner</option>
-                </select>
-            </div>
-
-            <button type="submit">
-                Create Account
-            </button>
-
-        </form>
+        </div>
 
     </div>
 </section>
+
 {% endblock %}

@@ -1,15 +1,629 @@
 {% extends "base.html" %}
 
-{% block title %}RENTLOCAL{% endblock %}
+{% block title %}RENTLOCAL | Rent Equipment Locally{% endblock %}
 
 {% block content %}
-<section class="page-section">
-    <div class="container">
-        <h1 class="page-title">Welcome to RENTLOCAL</h1>
 
-        <p class="text-secondary">
-            Find equipment you can rent from local owners.
-        </p>
+<!-- =========================================
+     HERO
+     ========================================= -->
+
+<section class="home-hero">
+    <div class="container">
+
+        <div class="hero-content">
+
+            <span class="hero-eyebrow">
+                RENT LOCAL. SPEND SMART.
+            </span>
+
+            <h1 class="hero-title">
+                Get what you need.
+                <span>Rent what you don't.</span>
+            </h1>
+
+            <p class="hero-description">
+                Find affordable equipment from people near you.
+                Perfect for school projects, events, content creation,
+                small businesses, and everyday needs.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for('browse') }}"
+                    class="button button-primary"
+                >
+                    Browse Equipment
+                </a>
+
+                {% if session.get("user_id") %}
+
+                    {% if session.get("user_role") == "owner" %}
+
+                        <a
+                            href="{{ url_for('create_listing_page') }}"
+                            class="button button-secondary"
+                        >
+                            List Your Equipment
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{{ url_for('renter_requests') }}"
+                            class="button button-secondary"
+                        >
+                            My Requests
+                        </a>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="button button-secondary"
+                    >
+                        Get Started
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+            <div class="hero-trust">
+
+                <span>✓ Local listings</span>
+                <span>✓ Affordable rentals</span>
+                <span>✓ Built for everyday needs</span>
+
+            </div>
+
+        </div>
+
     </div>
 </section>
+
+
+<!-- =========================================
+     CATEGORIES
+     ========================================= -->
+
+<section class="home-section">
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    EXPLORE RENTALS
+                </span>
+
+                <h2 class="section-title">
+                    What do you need?
+                </h2>
+
+                <p class="text-secondary">
+                    From school requirements to business equipment,
+                    find useful things without buying them outright.
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('browse') }}"
+                class="section-link"
+            >
+                View all
+            </a>
+
+        </div>
+
+
+        <div class="category-grid">
+
+            <a
+                href="{{ url_for('browse', category='Study & School') }}"
+                class="category-card"
+            >
+                <span class="category-icon">📚</span>
+                <span class="category-name">Study & School</span>
+                <span class="category-description">
+                    Projects, reports & school needs
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Presentation & Events') }}"
+                class="category-card"
+            >
+                <span class="category-icon">🎤</span>
+                <span class="category-name">Events & Presentation</span>
+                <span class="category-description">
+                    Projectors, speakers & event gear
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Photography & Video') }}"
+                class="category-card"
+            >
+                <span class="category-icon">📷</span>
+                <span class="category-name">Photo & Video</span>
+                <span class="category-description">
+                    Cameras, tripods & creative gear
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Audio & Content Creation') }}"
+                class="category-card"
+            >
+                <span class="category-icon">🎙️</span>
+                <span class="category-name">Audio & Content</span>
+                <span class="category-description">
+                    Microphones & creator equipment
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Tech & Gadgets') }}"
+                class="category-card"
+            >
+                <span class="category-icon">💻</span>
+                <span class="category-name">Tech & Gadgets</span>
+                <span class="category-description">
+                    Useful devices for work & school
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Tools & DIY') }}"
+                class="category-card"
+            >
+                <span class="category-icon">🛠️</span>
+                <span class="category-name">Tools & DIY</span>
+                <span class="category-description">
+                    Tools for projects and repairs
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Sports & Recreation') }}"
+                class="category-card"
+            >
+                <span class="category-icon">⚽</span>
+                <span class="category-name">Sports & Recreation</span>
+                <span class="category-description">
+                    Gear for activities and fun
+                </span>
+            </a>
+
+
+            <a
+                href="{{ url_for('browse', category='Other') }}"
+                class="category-card"
+            >
+                <span class="category-icon">＋</span>
+                <span class="category-name">Other</span>
+                <span class="category-description">
+                    Find something else you need
+                </span>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================================
+     AVAILABLE EQUIPMENT
+     ========================================= -->
+
+<section class="home-section home-section-soft">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    AVAILABLE NOW
+                </span>
+
+                <h2 class="section-title">
+                    Equipment people are renting
+                </h2>
+
+                <p class="text-secondary">
+                    Check out what's available from local owners.
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('browse') }}"
+                class="section-link"
+            >
+                Browse marketplace
+            </a>
+
+        </div>
+
+
+        {% if listings %}
+
+            <div class="listing-grid">
+
+                {% for listing in listings[:6] %}
+
+                    <article class="listing-card">
+
+                        {% if listing["image_filename"] %}
+
+                            <div class="listing-card-image">
+
+                                <img
+                                    src="{{ url_for('uploaded_file', filename=listing['image_filename']) }}"
+                                    alt="{{ listing['title'] }}"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="listing-card-image listing-card-image-placeholder">
+                                No image available
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="listing-card-content">
+
+                            <span class="listing-category">
+                                {{ listing["category"] }}
+                            </span>
+
+                            <h2>
+                                {{ listing["title"] }}
+                            </h2>
+
+                            <p class="listing-description">
+                                {{ listing["description"] }}
+                            </p>
+
+
+                            <div class="listing-meta">
+
+                                <p>
+                                    <strong>
+                                        ₱{{ "%.2f"|format(listing["price_per_day"]) }}
+                                    </strong>
+                                    / day
+                                </p>
+
+                                <p>
+                                    📍 {{ listing["location"] }}
+                                </p>
+
+                            </div>
+
+
+                            <div class="listing-card-footer">
+
+                                <span class="listing-owner">
+                                    Available for rent
+                                </span>
+
+                                <a
+                                    href="{{ url_for('listing_detail', listing_id=listing['id']) }}"
+                                    class="button button-primary"
+                                >
+                                    View Details
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h2>
+                    No equipment available yet.
+                </h2>
+
+                <p class="text-secondary">
+                    Be one of the first people to offer equipment
+                    through RENTLOCAL.
+                </p>
+
+
+                {% if session.get("user_id") and session.get("user_role") == "owner" %}
+
+                    <a
+                        href="{{ url_for('create_listing_page') }}"
+                        class="button button-primary"
+                    >
+                        List Your Equipment
+                    </a>
+
+                {% elif not session.get("user_id") %}
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="button button-primary"
+                    >
+                        Become an Owner
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     WHY RENTLOCAL
+     ========================================= -->
+
+<section class="home-section">
+
+    <div class="container">
+
+        <div class="section-heading centered">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    WHY RENTLOCAL?
+                </span>
+
+                <h2 class="section-title">
+                    Why buy something you'll only use once?
+                </h2>
+
+                <p class="text-secondary">
+                    RENTLOCAL makes it easier to access useful equipment
+                    without the cost of owning everything yourself.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+            <article class="step-card">
+
+                <span class="step-number">01</span>
+
+                <h3>
+                    Save Money
+                </h3>
+
+                <p>
+                    Rent equipment for the time you actually need it
+                    instead of spending more on something you'll rarely use.
+                </p>
+
+            </article>
+
+
+            <article class="step-card">
+
+                <span class="step-number">02</span>
+
+                <h3>
+                    Find It Nearby
+                </h3>
+
+                <p>
+                    Discover equipment offered by people in your local
+                    community.
+                </p>
+
+            </article>
+
+
+            <article class="step-card">
+
+                <span class="step-number">03</span>
+
+                <h3>
+                    Earn From What You Own
+                </h3>
+
+                <p>
+                    Owners can turn unused equipment into an additional
+                    source of income.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     HOW IT WORKS
+     ========================================= -->
+
+<section class="home-section home-section-muted">
+
+    <div class="container">
+
+        <div class="section-heading centered">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    SIMPLE PROCESS
+                </span>
+
+                <h2 class="section-title">
+                    How RENTLOCAL works
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+            <article class="step-card">
+
+                <span class="step-number">
+                    01
+                </span>
+
+                <h3>
+                    Find
+                </h3>
+
+                <p>
+                    Browse equipment available from local owners.
+                </p>
+
+            </article>
+
+
+            <article class="step-card">
+
+                <span class="step-number">
+                    02
+                </span>
+
+                <h3>
+                    Request
+                </h3>
+
+                <p>
+                    Choose what you need and send a rental request
+                    to the owner.
+                </p>
+
+            </article>
+
+
+            <article class="step-card">
+
+                <span class="step-number">
+                    03
+                </span>
+
+                <h3>
+                    Rent
+                </h3>
+
+                <p>
+                    Coordinate with the owner and get the equipment
+                    you need.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     OWNER CTA
+     ========================================= -->
+
+<section class="home-section">
+
+    <div class="container">
+
+        <div class="owner-cta">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    FOR STUDENTS, CREATORS & OWNERS
+                </span>
+
+                <h2>
+                    Have equipment sitting unused?
+                </h2>
+
+                <p>
+                    Turn your unused equipment into extra income
+                    while helping someone nearby get what they need.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                {% if session.get("user_id") and session.get("user_role") == "owner" %}
+
+                    <a
+                        href="{{ url_for('create_listing_page') }}"
+                        class="button button-primary"
+                    >
+                        List Your Equipment
+                    </a>
+
+                {% elif session.get("user_id") %}
+
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="button button-primary"
+                    >
+                        Go to Dashboard
+                    </a>
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="button button-primary"
+                    >
+                        Become an Owner
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock %}

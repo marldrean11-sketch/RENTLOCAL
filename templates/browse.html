@@ -4,12 +4,19 @@
 
 {% block content %}
 
-<section class="page-section">
+<section class="browse-page">
     <div class="container">
 
+        <!-- Page Header -->
         <div class="page-header">
             <div>
-                <h1 class="page-title">Browse Equipment</h1>
+                <span class="section-eyebrow">
+                    RENTLOCAL MARKETPLACE
+                </span>
+
+                <h1 class="page-title">
+                    Browse Equipment
+                </h1>
 
                 <p class="text-secondary">
                     Find equipment available for rent from local owners.
@@ -19,7 +26,6 @@
 
 
         <!-- Search and Filters -->
-
         <form
             method="GET"
             action="{{ url_for('browse') }}"
@@ -27,7 +33,6 @@
         >
 
             <div class="filter-group">
-
                 <label for="search">
                     Search
                 </label>
@@ -39,12 +44,10 @@
                     value="{{ search }}"
                     placeholder="Search equipment..."
                 >
-
             </div>
 
 
             <div class="filter-group">
-
                 <label for="category">
                     Category
                 </label>
@@ -53,29 +56,23 @@
                     id="category"
                     name="category"
                 >
-
                     <option value="">
                         All Categories
                     </option>
 
                     {% for item in categories %}
-
                         <option
                             value="{{ item }}"
                             {% if category == item %}selected{% endif %}
                         >
                             {{ item }}
                         </option>
-
                     {% endfor %}
-
                 </select>
-
             </div>
 
 
             <div class="filter-group">
-
                 <label for="location">
                     Location
                 </label>
@@ -87,12 +84,10 @@
                     value="{{ location }}"
                     placeholder="e.g. Taguig City"
                 >
-
             </div>
 
 
             <div class="filter-actions">
-
                 <button
                     type="submit"
                     class="button button-primary"
@@ -106,111 +101,109 @@
                 >
                     Clear
                 </a>
-
             </div>
 
         </form>
 
 
-        <!-- Results -->
-
+        <!-- Results Header -->
         {% if listings %}
 
             <div class="results-header">
+                <div>
+                    <h2 class="section-title">
+                        Available Equipment
+                    </h2>
 
-                <p class="text-secondary">
-                    {{ listings|length }}
-                    {% if listings|length == 1 %}
-                        equipment
-                    {% else %}
-                        equipment
-                    {% endif %}
-                    found
-                </p>
-
+                    <p class="text-secondary">
+                        {{ listings|length }}
+                        {% if listings|length == 1 %}
+                            item
+                        {% else %}
+                            items
+                        {% endif %}
+                        available
+                    </p>
+                </div>
             </div>
 
 
+            <!-- Listing Cards -->
             <div class="listing-grid">
 
                 {% for listing in listings %}
 
                     <article class="listing-card">
 
-
                         <!-- Listing Image -->
-
                         {% if listing["image_filename"] %}
 
                             <div class="listing-card-image">
-
                                 <img
                                     src="{{ url_for('uploaded_file', filename=listing['image_filename']) }}"
                                     alt="{{ listing['title'] }}"
                                 >
+                            </div>
 
+                        {% else %}
+
+                            <div class="listing-card-image listing-card-image-placeholder">
+                                <span>
+                                    No image available
+                                </span>
                             </div>
 
                         {% endif %}
 
 
                         <!-- Listing Information -->
-
                         <div class="listing-card-content">
+
+                            <span class="listing-category">
+                                {{ listing["category"] }}
+                            </span>
 
                             <h2>
                                 {{ listing["title"] }}
                             </h2>
 
-
-                            <p>
+                            <p class="listing-description">
                                 {{ listing["description"] }}
                             </p>
 
 
-                            <p>
-                                <strong>Category:</strong>
-                                {{ listing["category"] }}
-                            </p>
+                            <div class="listing-meta">
+
+                                <p>
+                                    <strong>₱{{ "%.2f"|format(listing["price_per_day"]) }}</strong>
+                                    / day
+                                </p>
+
+                                <p>
+                                    {{ listing["location"] }}
+                                </p>
+
+                                <p>
+                                    {{ listing["condition"] }}
+                                </p>
+
+                            </div>
 
 
-                            <p>
-                                <strong>Price:</strong>
-                                ₱{{ "%.2f"|format(listing["price_per_day"]) }}
-                                / day
-                            </p>
+                            <div class="listing-card-footer">
 
+                                <span class="listing-owner">
+                                    By {{ listing["owner_name"] }}
+                                </span>
 
-                            <p>
-                                <strong>Location:</strong>
-                                {{ listing["location"] }}
-                            </p>
+                                <a
+                                    href="{{ url_for('listing_detail', listing_id=listing['id']) }}"
+                                    class="button button-primary"
+                                >
+                                    View Details
+                                </a>
 
-
-                            <p>
-                                <strong>Condition:</strong>
-                                {{ listing["condition"] }}
-                            </p>
-
-
-                            <p>
-                                <strong>Owner:</strong>
-                                {{ listing["owner_name"] }}
-                            </p>
-
-
-                            <p>
-                                <strong>Status:</strong>
-                                {{ listing["status"] }}
-                            </p>
-
-
-                            <a
-                                href="{{ url_for('listing_detail', listing_id=listing['id']) }}"
-                                class="button button-primary"
-                            >
-                                View Details
-                            </a>
+                            </div>
 
                         </div>
 
@@ -223,19 +216,24 @@
 
         {% else %}
 
+            <!-- Empty State -->
             <div class="empty-state">
+
+                <span class="section-eyebrow">
+                    NO RESULTS
+                </span>
 
                 <h2>
                     No equipment found
                 </h2>
 
                 <p class="text-secondary">
-                    Try changing your search or filters.
+                    Try changing your search or filters to find available equipment.
                 </p>
 
                 <a
                     href="{{ url_for('browse') }}"
-                    class="button"
+                    class="button button-primary"
                 >
                     View All Equipment
                 </a>

@@ -3,53 +3,118 @@
 {% block title %}Sign In | RENTLOCAL{% endblock %}
 
 {% block content %}
-<section class="page-section">
+
+<section class="auth-page">
     <div class="container">
 
-        <h1 class="page-title">Sign In</h1>
+        <div class="auth-layout">
 
-        <p class="text-secondary">
-            Sign in to your RENTLOCAL account.
-        </p>
+            <!-- Left: Introduction -->
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">
-                        {{ message }}
+            <div class="auth-intro">
+
+                <span class="auth-eyebrow">
+                    WELCOME BACK
+                </span>
+
+                <h1 class="auth-title">
+                    Sign In
+                </h1>
+
+                <p class="auth-description">
+                    Sign in to your RENTLOCAL account to rent equipment
+                    from local owners or manage your listed equipment.
+                </p>
+
+            </div>
+
+
+            <!-- Right: Login Form -->
+
+            <div class="auth-form-card">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        {% for category, message in messages %}
+
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <form method="POST" class="auth-form">
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
-        <form method="POST">
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                >
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="button button-primary auth-submit"
+                    >
+                        Sign In
+                    </button>
+
+                </form>
+
+
+                <div class="auth-footer">
+
+                    <span>
+                        Don't have an account?
+                    </span>
+
+                    <a href="{{ url_for('register') }}">
+                        Create one
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    required
-                >
-            </div>
-
-            <button type="submit">
-                Sign In
-            </button>
-
-        </form>
+        </div>
 
     </div>
 </section>
+
 {% endblock %}

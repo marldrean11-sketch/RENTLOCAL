@@ -1,0 +1,93 @@
+/* =========================================
+   RENTLOCAL — Browse Page
+   ========================================= */
+
+
+/* ================================
+   PAGE HEADER
+   ================================ */
+
+.browse-page {
+    padding: 4rem 0 5rem;
+}
+
+.browse-page .page-header {
+    margin-bottom: var(--space-xl);
+}
+
+.browse-page .page-title {
+    margin-bottom: var(--space-sm);
+}
+
+
+/* ================================
+   MARKETPLACE EYEBROW
+   ================================ */
+
+.browse-page .section-eyebrow {
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.browse-page .page-header .text-secondary {
+    max-width: 620px;
+    margin: 0;
+}
+
+
+/* ================================
+   RESULTS HEADER
+   ================================ */
+
+.results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.results-header p {
+    margin: 0;
+}
+
+
+/* ================================
+   BROWSE LISTING GRID
+   ================================ */
+
+.browse-page .listing-grid {
+    margin-top: 0;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 640px) {
+
+    .browse-page {
+        padding: 3rem 0 4rem;
+    }
+
+    .browse-page .page-header {
+        margin-bottom: var(--space-lg);
+    }
+
+    .browse-page .section-eyebrow {
+        font-size: 0.8rem;
+    }
+
+    .results-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}

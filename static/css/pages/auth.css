@@ -1,0 +1,209 @@
+/* =========================================
+   RENTLOCAL — Authentication Pages
+   ========================================= */
+
+
+/* ================================
+   PAGE
+   ================================ */
+
+.auth-page {
+    padding: var(--space-3xl) 0;
+}
+
+
+/* ================================
+   LAYOUT
+   ================================ */
+
+.auth-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.75fr);
+
+    gap: 5rem;
+    align-items: center;
+
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ================================
+   INTRO
+   ================================ */
+
+.auth-intro {
+    padding-top: 0;
+}
+
+.auth-intro .page-title {
+    margin-bottom: var(--space-md);
+}
+
+.auth-intro .text-secondary {
+    max-width: 520px;
+    margin: 0;
+
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   CARD
+   ================================ */
+
+.auth-card {
+    padding: var(--space-xl);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    background: var(--background);
+
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* ================================
+   FLASH MESSAGES
+   ================================ */
+
+.flash-messages {
+    display: grid;
+    gap: var(--space-sm);
+
+    margin-bottom: var(--space-lg);
+}
+
+
+/* ================================
+   FORM
+   ================================ */
+
+.auth-form {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.auth-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auth-form label {
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.auth-form input,
+.auth-form select {
+    width: 100%;
+    min-height: 46px;
+
+    padding: 0.75rem 0.9rem;
+
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+
+    background: var(--background);
+    color: var(--text-primary);
+
+    font: inherit;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.auth-form input::placeholder {
+    color: var(--text-muted);
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    outline: none;
+
+    border-color: var(--brand);
+
+    box-shadow:
+        0 0 0 3px var(--brand-soft);
+}
+
+
+/* ================================
+   SUBMIT
+   ================================ */
+
+.auth-submit {
+    width: 100%;
+    margin-top: var(--space-sm);
+}
+
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.auth-footer {
+    margin: var(--space-lg) 0 0;
+    padding-top: var(--space-lg);
+
+    border-top: 1px solid var(--border);
+
+    text-align: center;
+
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
+.auth-footer a {
+    color: var(--brand);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: var(--brand-hover);
+    text-decoration: underline;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 800px) {
+
+    .auth-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+
+        max-width: 620px;
+    }
+
+    .auth-intro {
+        text-align: center;
+    }
+
+    .auth-intro .text-secondary {
+        margin: 0 auto;
+    }
+
+}
+
+
+@media (max-width: 640px) {
+
+    .auth-page {
+        padding: var(--space-2xl) 0;
+    }
+
+    .auth-card {
+        padding: var(--space-lg);
+        border-radius: var(--radius-md);
+    }
+
+}

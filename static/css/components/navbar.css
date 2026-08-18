@@ -1,51 +1,194 @@
+/* =========================================
+   RENTLOCAL — Navbar
+   ========================================= */
+
+
+/* ================================
+   SITE HEADER
+   ================================ */
+
 .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
     border-bottom: 1px solid var(--border);
-    background: var(--background);
+
+    background: rgba(255, 255, 255, 0.94);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
+
+/* ================================
+   NAVBAR
+   ================================ */
+
 .navbar {
-    min-height: 72px;
+    min-height: 76px;
+}
+
+
+/* ================================
+   NAV CONTAINER
+   ================================ */
+
+.nav-container {
+    min-height: 76px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
+
+    gap: var(--space-xl);
 }
 
+
+/* ================================
+   BRAND
+   ================================ */
+
 .brand {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--brand);
+    display: inline-flex;
+    align-items: center;
+
+    color: var(--text-primary);
     text-decoration: none;
+
+    font-size: 1.45rem;
+    font-weight: 850;
+    letter-spacing: -0.045em;
+
+    white-space: nowrap;
+
+    transition: color 160ms ease;
 }
+
+.brand:hover {
+    color: var(--brand);
+}
+
+
+/* ================================
+   NAVIGATION
+   ================================ */
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+
+    gap: 0.25rem;
 }
 
+
+/* ================================
+   NAVIGATION LINKS
+   ================================ */
+
 .nav-links a {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 42px;
+
+    padding: 0.55rem 0.8rem;
+
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
+
+    font-size: 0.92rem;
+    font-weight: 650;
+
+    border-radius: var(--radius-sm);
+
+    transition:
+        color 160ms ease,
+        background-color 160ms ease;
 }
 
 .nav-links a:hover {
-    color: var(--brand);
+    color: var(--text-primary);
+    background: var(--surface);
 }
 
-@media (max-width: 640px) {
-    .navbar {
-        min-height: 64px;
+
+/* ================================
+   REGISTER / PRIMARY CTA
+   ================================ */
+
+.nav-links a:last-child {
+    color: #ffffff;
+    background: var(--brand);
+
+    padding-inline: 1rem;
+
+    font-weight: 700;
+}
+
+.nav-links a:last-child:hover {
+    color: #ffffff;
+    background: var(--brand-hover);
+}
+
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media (max-width: 760px) {
+
+    .navbar,
+    .nav-container {
+        min-height: 68px;
+    }
+
+    .nav-container {
+        gap: var(--space-md);
     }
 
     .nav-links {
-        gap: var(--space-sm);
+        gap: 0.1rem;
+    }
+
+    .nav-links a {
+        min-height: 38px;
+        padding: 0.45rem 0.6rem;
+
+        font-size: 0.86rem;
     }
 
     .brand {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
     }
+}
+
+
+/* ================================
+   SMALL SCREENS
+   ================================ */
+
+@media (max-width: 560px) {
+
+    .navbar {
+        padding-block: 0.75rem;
+    }
+
+    .nav-container {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: var(--space-sm);
+    }
+
+    .nav-links {
+        width: 100%;
+
+        flex-wrap: wrap;
+    }
+
+    .nav-links a {
+        min-height: 36px;
+    }
+
 }

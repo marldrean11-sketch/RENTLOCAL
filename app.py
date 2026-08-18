@@ -59,7 +59,12 @@ def owner_required(view):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    listings = get_available_listings()
+
+    return render_template(
+        "index.html",
+        listings=listings
+    )
 
 
 @app.route("/browse")

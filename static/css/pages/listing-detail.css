@@ -1,0 +1,228 @@
+/* =========================================
+   RENTLOCAL — Listing Detail Page
+   ========================================= */
+
+
+/* ================================
+   PAGE
+   ================================ */
+
+.listing-detail-page {
+    padding: 4rem 0 5rem;
+}
+
+
+/* ================================
+   DETAIL LAYOUT
+   ================================ */
+
+.listing-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 3rem;
+    align-items: start;
+}
+
+
+/* ================================
+   IMAGE
+   ================================ */
+
+.listing-detail-image {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--surface);
+}
+
+.listing-detail-image img {
+    display: block;
+    width: 100%;
+    max-height: 560px;
+    object-fit: cover;
+}
+
+
+/* ================================
+   INFORMATION
+   ================================ */
+
+.listing-detail-content {
+    min-width: 0;
+}
+
+.listing-detail-category {
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.listing-detail-title {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+}
+
+.listing-detail-description {
+    margin: var(--space-lg) 0 0;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   DETAILS
+   ================================ */
+
+.listing-detail-info {
+    display: grid;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border);
+}
+
+.listing-detail-info p {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    align-items: center;
+    gap: var(--space-md);
+    margin: 0;
+}
+
+.listing-detail-info strong {
+    color: var(--text-primary);
+}
+
+.listing-detail-info span {
+    color: var(--text-secondary);
+    text-align: left;
+}
+
+
+/* ================================
+   PRICE
+   ================================ */
+
+.listing-detail-price {
+    margin-top: var(--space-xl);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.listing-detail-price small {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+
+/* ================================
+   RENTAL REQUEST
+   ================================ */
+
+.rental-request-card {
+    margin-top: var(--space-xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--surface);
+}
+
+.rental-request-card h2 {
+    margin: 0 0 var(--space-lg);
+    font-size: 1.4rem;
+}
+
+.rental-request-form {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.rental-request-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.rental-request-form label {
+    font-size: 0.85rem;
+    font-weight: 750;
+}
+
+.rental-request-form input,
+.rental-request-form textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: var(--background);
+    font: inherit;
+}
+
+.rental-request-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.rental-request-form input:focus,
+.rental-request-form textarea:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+}
+
+
+/* ================================
+   SIGN-IN MESSAGE
+   ================================ */
+
+.listing-detail-signin {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 900px) {
+
+    .listing-detail {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+
+}
+
+
+@media (max-width: 640px) {
+
+    .listing-detail-page {
+        padding: 3rem 0 4rem;
+    }
+
+    .listing-detail-info p {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+    }
+
+    .listing-detail-info span {
+        text-align: left;
+    }
+
+    .rental-request-card {
+        padding: var(--space-lg);
+    }
+
+}

@@ -1,6 +1,67 @@
+/* =========================================
+   RENTLOCAL — Footer
+   ========================================= */
+
 .site-footer {
+    margin-top: var(--space-3xl);
+
+    padding: var(--space-xl) 0;
+
     border-top: 1px solid var(--border);
-    padding-block: var(--space-lg);
+
+    background: var(--surface);
+
     color: var(--text-secondary);
     font-size: 0.875rem;
+}
+
+
+/* ================================
+   FOOTER CONTENT
+   ================================ */
+
+.site-footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+}
+
+
+/* ================================
+   FOOTER TEXT
+   ================================ */
+
+.site-footer p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   BRAND
+   ================================ */
+
+.site-footer p::first-line {
+    font-weight: 600;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 640px) {
+
+    .site-footer {
+        margin-top: var(--space-2xl);
+        padding: var(--space-lg) 0;
+    }
+
+    .site-footer .container {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
 }

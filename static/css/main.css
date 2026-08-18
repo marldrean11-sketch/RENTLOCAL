@@ -1,5 +1,5 @@
 /* =========================================
-   RENTLOCAL — Main CSS Entry Point
+   RENTLOCAL ï¿½ Main CSS Entry Point
    ========================================= */
 
 /* Base */
@@ -18,3 +18,8 @@
 /* Pages */
 @import url("./pages/home.css");
 @import url("./pages/dashboard.css");
+@import url("./pages/listing-detail.css");
+@import url("./pages/browse.css");
+@import url("./pages/auth.css");
+@import url("./pages/owner-listings.css");
+@import url("./pages/owner-requests.css");
