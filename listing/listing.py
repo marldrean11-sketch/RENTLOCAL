@@ -517,6 +517,7 @@ def get_owner_rental_requests(owner_id):
     return requests
 
 
+
 def update_rental_request_status(
     request_id,
     owner_id,
@@ -527,43 +528,64 @@ def update_rental_request_status(
 
     connection = get_db_connection()
 
-    rental_request = connection.execute(
-        """
-        SELECT
-            rental_requests.id,
-            rental_requests.status,
-            listings.owner_id
-        FROM rental_requests
-        JOIN listings
-            ON rental_requests.listing_id = listings.id
-        WHERE rental_requests.id = ?
-        AND listings.owner_id = ?
-        """,
-        (request_id, owner_id)
-    ).fetchone()
+    try:
+        rental_request = connection.execute(
+            """
+            SELECT
+                rental_requests.id,
+                rental_requests.listing_id,
+                rental_requests.status,
+                listings.owner_id
+            FROM rental_requests
+            JOIN listings
+                ON rental_requests.listing_id = listings.id
+            WHERE rental_requests.id = ?
+            AND listings.owner_id = ?
+            """,
+            (request_id, owner_id)
+        ).fetchone()
 
-    if not rental_request:
+        if not rental_request:
+            return False, "Rental request not found."
+
+        if rental_request["status"] != "pending":
+            return False, "Only pending requests can be updated."
+
+        # Update the rental request status
+        connection.execute(
+            """
+            UPDATE rental_requests
+            SET status = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+            """,
+            (status, request_id)
+        )
+
+        # If the request is accepted,
+        # make the corresponding listing unavailable.
+        if status == "accepted":
+            connection.execute(
+                """
+                UPDATE listings
+                SET status = 'unavailable'
+                WHERE id = ?
+                """,
+                (rental_request["listing_id"],)
+            )
+
+        connection.commit()
+
+        return True, "Rental request status updated successfully."
+
+    except Exception as error:
+        connection.rollback()
+        print("UPDATE REQUEST STATUS ERROR:", error)
+        return False, "Failed to update rental request status."
+
+    finally:
         connection.close()
-        return False, "Rental request not found."
 
-    if rental_request["status"] != "pending":
-        connection.close()
-        return False, "Only pending requests can be updated."
-
-    connection.execute(
-        """
-        UPDATE rental_requests
-        SET status = ?,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
-        """,
-        (status, request_id)
-    )
-
-    connection.commit()
-    connection.close()
-
-    return True, "Rental request status updated successfully."
 
 
 
